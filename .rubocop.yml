@@ -1,0 +1,35 @@
+AllCops:
+  Include:
+    - "Gemfile"
+    - "Thorfile"
+    - "thor.gemspec"
+
+BracesAroundHashParameters:
+  EnforcedStyle: braces
+
+Documentation:
+  Enabled: false
+
+# Enforce outdenting of access modifiers (i.e. public, private, protected)
+AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%":  ()
+    "%i": ()
+    "%q": ()
+    "%Q": ()
+    "%r": "{}"
+    "%s": ()
+    "%w": "[]"
+    "%W": "[]"
+    "%x": ()
+
+# Align ends correctly
+EndAlignment:
+  AlignWith: variable
+
+MethodLength:
+  CountComments: false
+  Max: 15

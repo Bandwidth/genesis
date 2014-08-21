@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'genesis/cli'
+Genesis::Cli.start
