@@ -8,6 +8,9 @@ A Terraform CLI wrapper built by the Bandwidth Incubator.
 1. Expose a command for each infrastructure-related lifecycle event in an Incubator-style project.
 2. Each command should protect against accidental non-automated actions that impact infrastructure.
 3. Don't do anything other than wrap the Terraform CLI
+4. Be platform independent
+
+Note: Still not tested on any OS other than Windows. Please submit an issue if there are problems!
 
 This code base will be greatly simplified once Terraform allows for environment variable interpolation in ```tfvars``` files.
 
