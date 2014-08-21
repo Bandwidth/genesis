@@ -29,17 +29,9 @@ class Default < Thor
     exit(!success) unless success
   end
 
-  desc 'spec', 'Run tests.'
-  def spec
-    say 'Running all rspec tests...', :white
-    success = system 'rspec spec'
-    exit(!success) unless success
-  end
-
   desc 'check', 'Lint, style, and test.'
   def check
     invoke :rubocop
-    # invoke :spec
   end
 
   def initialize(*args)
