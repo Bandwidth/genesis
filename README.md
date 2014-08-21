@@ -28,6 +28,9 @@ This code base will be greatly simplified once Terraform allows for environment 
 - genesis show
   - Output contents of the state file
 
+Note:
+> All of these commands assume that the current working directory contains a ```terraform``` directory where terraform ```tf```, ```tf.json```, and ```tfvars``` files are. This is the directory passed to the Terraform cli.
+
 #### Options
 - [--prompt], [--no-prompt]
   - Prompt before executing dangerous commands (Default: true)
