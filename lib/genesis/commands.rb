@@ -3,17 +3,56 @@ require 'thor'
 module Genesis
   module Commands
     def destroy_plan_command
-      %W[
-        terraform plan
-        -var "aws_access_key=#{@aws_access_key}"
-        -var "aws_secret_key=#{@aws_secret_key}"
-        -var "aws_key_pair=#{@aws_key_pair}"
-        -refresh=true
-        -destroy
-        -state=#{state_file}
-        -out=#{plan_file}
-        #{terraform_dir}
-      ].join(' ')
+      command = []
+      command << 'terraform plan'
+      command << variables
+      command.flatten!
+      command << '-refresh=true'
+      command << '-destroy'
+      command << "-state=#{state_file}"
+      command << "-out=#{plan_file}"
+      command << "#{@terraform_dir}"
+      
+      command.join(' ')
+    end
+
+    def apply_command
+      command = []
+      command << 'terraform apply'
+      command << variables
+      command.flatten!
+      command << '-refresh=true'
+      command << "-state=#{state_file}"
+      command << "#{@terraform_dir}"
+      
+      command.join(' ')
+    end
+
+    def refresh_command
+      command = []
+      command << 'terraform refresh'
+      command << variables
+      command.flatten!
+      command << "-state=#{state_file}"
+      command << "#{@terraform_dir}"
+      
+      command.join(' ')
+    end
+
+    def plan_command
+      command = []
+      command << 'terraform plan'
+      command << variables
+      command.flatten!
+      command << '-refresh=true'
+      command << "-state=#{state_file}"
+      command << "#{@terraform_dir}"
+      
+      command.join(' ')
+    end
+
+    def show_command
+      "terraform show #{state_file}"
     end
 
     def apply_plan_command
@@ -24,43 +63,20 @@ module Genesis
       ].join(' ')
     end
 
-    def apply_command
-      %W[
-        terraform apply
-        -var "aws_access_key=#{@aws_access_key}"
-        -var "aws_secret_key=#{@aws_secret_key}"
-        -var "aws_key_pair=#{@aws_key_pair}"
-        -refresh=true
-        -state=#{state_file}
-        #{terraform_dir}
-      ].join(' ')
-    end
+  private
 
-    def refresh_command
-      %W[
-        terraform refresh
-        -var "aws_access_key=#{@aws_access_key}"
-        -var "aws_secret_key=#{@aws_secret_key}"
-        -var "aws_key_pair=#{@aws_key_pair}"
-        -state=#{state_file}
-        #{terraform_dir}
-      ].join(' ')
-    end
+    def variables
+      defaults = {
+        aws_access_key: @aws_access_key,
+        aws_secret_key: @aws_secret_key,
+        aws_key_pair: @aws_key_pair
+      }
 
-    def plan_command
-      %W[
-        terraform plan
-        -var "aws_access_key=#{@aws_access_key}"
-        -var "aws_secret_key=#{@aws_secret_key}"
-        -var "aws_key_pair=#{@aws_key_pair}"
-        -refresh=true
-        -state=#{state_file}
-        #{terraform_dir}
-      ].join(' ')
-    end
+      variables = defaults.merge(@vars)
 
-    def show_command
-      "terraform show #{state_file}"
+      variables.reduce([]) do |data, (name, value)|
+        data << "-var \"#{name}=#{value}\""
+      end
     end
   end
 end

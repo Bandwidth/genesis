@@ -24,7 +24,8 @@ module Genesis
         true
       end
 
-      system apply_command if confirmed
+      puts apply_command
+      # system apply_command if confirmed
     end
 
     desc 'show', 'Output contents of the state file'
@@ -56,6 +57,12 @@ module Genesis
       default: File.join(Dir.pwd, 'terraform'),
       desc: 'Directory where terraform files can be found'
     }
+    option :vars, {
+      required: true,
+      type: :hash,
+      default: {},
+      desc: "Adds additional variables for a Terraform command."
+    }
     def initialize(*args)
       super
 
@@ -64,6 +71,7 @@ module Genesis
       @aws_key_pair = ENV['AWS_KEY_PAIR']
       @prompt = options[:prompt]
       @terraform_dir = options[:terraform_dir]
+      @vars = options[:vars]
 
       validate_environment_variables
       validate_path
