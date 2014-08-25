@@ -52,17 +52,22 @@ module Genesis
       default: true,
       desc: 'Prompt before executing dangerous commands'
     }
+    option :terraform_dir, {
+      default: File.join(Dir.pwd, 'terraform'),
+      desc: 'Directory where terraform files can be found'
+    }
     def initialize(*args)
       super
-
-      validate_environment_variables
-      validate_path
-      validate_terraform_directory
 
       @aws_access_key = ENV['AWS_ACCESS_KEY']
       @aws_secret_key = ENV['AWS_SECRET_KEY']
       @aws_key_pair = ENV['AWS_KEY_PAIR']
       @prompt = options[:prompt]
+      @terraform_dir = options[:terraform_dir]
+
+      validate_environment_variables
+      validate_path
+      validate_terraform_directory
     end
 
   private
@@ -98,7 +103,7 @@ module Genesis
 
     def validate_terraform_directory
       # Check that terraform directory is present
-      path = File.join(project_root, 'terraform')
+      path = File.join(@terraform_dir)
 
       return if Dir.exist? path
 
@@ -106,20 +111,12 @@ module Genesis
       exit(1)
     end
 
-    def project_root
-      Dir.pwd
-    end
-
-    def terraform_dir
-      File.join(project_root, 'terraform')
-    end
-
     def state_file
-      File.join(terraform_dir, 'terraform.tfstate')
+      File.join(@terraform_dir, 'terraform.tfstate')
     end
 
     def plan_file
-      File.join(terraform_dir, 'terraform.tfplan')
+      File.join(@terraform_dir, 'terraform.tfplan')
     end
   end
 end
