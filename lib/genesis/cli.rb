@@ -24,8 +24,7 @@ module Genesis
         true
       end
 
-      puts apply_command
-      # system apply_command if confirmed
+      system apply_command if confirmed
     end
 
     desc 'show', 'Output contents of the state file'
