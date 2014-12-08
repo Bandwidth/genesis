@@ -60,7 +60,7 @@ module Genesis
       required: true,
       type: :hash,
       default: {},
-      desc: "Adds additional variables for a Terraform command."
+      desc: 'Adds additional variables for a Terraform command.'
     }
     def initialize(*args)
       super
