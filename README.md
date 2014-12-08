@@ -1,4 +1,4 @@
-genesis [![Build Status](https://travis-ci.org/bandwidthcom/genesis.svg)](https://travis-ci.org/bandwidthcom/genesis)
+genesis [![Build Status](https://travis-ci.org/bandwidthcom/genesis.svg?branch=master)](https://travis-ci.org/bandwidthcom/genesis)
 =========
 
 A Terraform CLI wrapper built by the Bandwidth Incubator.

@@ -12,7 +12,7 @@ module Genesis
       command << "-state=#{state_file}"
       command << "-out=#{plan_file}"
       command << "#{@terraform_dir}"
-      
+
       command.join(' ')
     end
 
@@ -24,7 +24,7 @@ module Genesis
       command << '-refresh=true'
       command << "-state=#{state_file}"
       command << "#{@terraform_dir}"
-      
+
       command.join(' ')
     end
 
@@ -35,7 +35,7 @@ module Genesis
       command.flatten!
       command << "-state=#{state_file}"
       command << "#{@terraform_dir}"
-      
+
       command.join(' ')
     end
 
@@ -47,7 +47,7 @@ module Genesis
       command << '-refresh=true'
       command << "-state=#{state_file}"
       command << "#{@terraform_dir}"
-      
+
       command.join(' ')
     end
 
